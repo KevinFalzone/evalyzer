@@ -1,14 +1,45 @@
 Package: evalyzer
-Title: What the Package Does (One Line, Title Case)
+Title: An extractor of user testing data for the Evalyzer platform
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: MIT + file LICENSE
-Suggests: 
+Authors@R:
+  c(
+    person(
+      given = "Kevin",
+      family = "Falzone",
+      role = c("aut", "cre"),
+      email = "kevin.falzone@univ-lorraine.fr",
+      comment = c(ORCID = "0000-0001-5222-9526")
+    ),
+    person(
+      given = "J. M. Christian",
+      family = "Bastien",
+      role = "ths",
+      email = "christian.bastien@univ-lorraine.fr",
+      comment = c(ORCID = "0000-0002-8875-0388")
+    ),
+    person(
+      given = "Sophie",
+      family = "Lemonnier",
+      role = "ths",
+      email = "sophie.lemonnier@univ-lorraine.fr",
+      comment = c(ORCID = "0000-0002-9650-7054")
+    )
+  )
+Description: Retrieve user testing data from the Evalyzer platform quickly and
+             easily.
+License: GPL (>= 3) + file LICENSE
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Imports:
+    stringr,
+    rvest,
+    dplyr,
+    jsonlite,
+    tidyr,
+    tidyselect
+Depends: 
+    R (>= 4.1.0)

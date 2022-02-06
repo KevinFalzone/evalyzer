@@ -1,0 +1,118 @@
+
+# Evalyzer
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/evalyzer)](https://CRAN.R-project.org/package=evalyzer)
+<!-- badges: end -->
+
+The goal of evalyzer, which is an unofficial package, is to provide
+several functions to extract user testing data from the Evalyzer
+platform quickly and easily.
+
+## Installation
+
+You can install the development version of evalyzer like so:
+
+``` r
+library(devtools)
+
+devtools::install_github("KevinFalzone/evalyzer")
+```
+
+## Login
+
+To extract the data you need first to authenticate to the Evalyzer
+platform using the `auth()` function.
+
+``` r
+session <- auth("my-username", "my-password")
+```
+
+## Data Extraction
+
+Several functions have been created to extract data:
+
+-   `get_overview()`
+-   `get_configuration()`
+-   `get_behavior()`
+-   `get_performance()`
+-   `get_answer()`
+-   `get_video()`
+
+### Overview
+
+The `get_overview()` function retrieves a glimpse of the user tests. The
+table contains for each user:
+
+-   the date and time of the test session,
+-   the task performances (task duration and task status),
+-   the total duration of the task(s).
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_overview <- get_overview(session, "project-id")
+```
+
+### Configuration
+
+The `get_configuration()` function extracts for each user the setup
+information. The table contains for each user:
+
+-   the screen resolution,
+-   the browser name (e.g., Mozilla Firefox, Google Chrome, etc.),
+-   the operating system name (e.g., Windows, MacOS, GNU/Linux, etc.).
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_configuration <- get_configuration(session, "project-id")
+```
+
+### Behaviors
+
+The `get_behavior()` function extracts for each user, the behaviors he
+performed during each task.
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_behavior <- get_behavior(session, "project-id")
+```
+
+### Performances
+
+The `get_performance()` function retrieves for each user, the duration
+and status of the task and sums the performances data from the
+`get_behavior()` function.
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_performance <- get_performance(session, "project-id")
+```
+
+### Answers
+
+The `get_answer()`function extracts the answers to the questions.
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_answer <- get_answer(session, "project-id")
+```
+
+### Videos
+
+The `get_video()`function permits to retrieve the videos for each task
+of each user.
+
+``` r
+session <- auth("my-username", "my-password")
+
+get_video(session, "project-id", "path-to-store-files")
+```

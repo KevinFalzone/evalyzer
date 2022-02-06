@@ -2,55 +2,104 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
-# evalyzer
+# Evalyzer
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/evalyzer)](https://CRAN.R-project.org/package=evalyzer)
 <!-- badges: end -->
 
-The goal of evalyzer is to ...
+The goal of evalyzer, which is an unofficial package, is to provide several functions to extract user testing data from the Evalyzer platform quickly and easily.
 
 ## Installation
 
 You can install the development version of evalyzer like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+library(devtools)
+
+devtools::install_github("KevinFalzone/evalyzer")
 ```
 
-## Example
+## Login
+To extract the data you need first to authenticate to the Evalyzer platform using the `auth()` function.
 
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-library(evalyzer)
-## basic example code
+``` r
+session <- auth("my-username", "my-password")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Data Extraction
+Several functions have been created to extract data:
 
-```{r cars}
-summary(cars)
+* `get_overview()`
+* `get_configuration()`
+* `get_behavior()`
+* `get_performance()`
+* `get_answer()`
+* `get_video()`
+
+### Overview
+The `get_overview()` function retrieves a summary of the user tests. The table contains for each user:
+
+* the date and time of the test session,
+* the task performances (task duration and task status),
+* the total duration of the task(s).
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_overview <- get_overview(session, "project-id")
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+### Configuration
+The `get_configuration()` function extracts for each user the setup information. The table contains for each user:
 
-You can also embed plots, for example:
+* the screen resolution,
+* the browser name (e.g., Mozilla Firefox, Google Chrome, etc.),
+* the operating system name (e.g., Windows, MacOS, GNU/Linux, etc.).
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+``` r
+session <- auth("my-username", "my-password")
+
+user_configuration <- get_configuration(session, "project-id")
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+### Behaviors
+The `get_behavior()` function extracts for each user the behaviors he performed during each task:
+
+* the behavior type (e.g., a clic, a scroll, etc.),
+* the timestamp behavior (in milliseconds),
+* the URL where the behavior occurred.
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_behavior <- get_behavior(session, "project-id")
+```
+
+### Performances
+The `get_performance()` function retrieves for each user the duration and status of the task and a summary of behavioral data (i.e., it sums clics, scrolls, page loads).
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_performance <- get_performance(session, "project-id")
+```
+
+### Answers
+The `get_answer()`function extracts the answers to the questions.
+
+``` r
+session <- auth("my-username", "my-password")
+
+user_answer <- get_answer(session, "project-id")
+```
+
+### Videos
+The `get_video()`function permits to retrieve the videos for each task of each user.
+
+``` r
+session <- auth("my-username", "my-password")
+
+get_video(session, "project-id", "path-to-store-files")
+```
