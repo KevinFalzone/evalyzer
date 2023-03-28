@@ -1,6 +1,6 @@
 Package: evalyzer
 Title: An extractor of user testing data for the Evalyzer platform
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R:
   c(
     person(

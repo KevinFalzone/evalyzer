@@ -6,6 +6,9 @@
 #' @param password User password.
 #' @return A rvest session.
 #'
+#' @importFrom rstudioapi askForSecret
+#' @importFrom rstudioapi isAvailable
+#' @importFrom rstudioapi showPrompt
 #' @importFrom rvest html_form
 #' @importFrom rvest html_form_set
 #' @importFrom rvest session
@@ -15,15 +18,43 @@
 #'
 #' @examples
 #' session <- auth("my-username", "my-password")
-auth <- function(username, password) {
+#'
+#' # Authenticate interactively
+#' session <- auth()
+auth <- function(username = "", password = "") {
 
-  # Check user inputs
+  # User inputs
   if (missing(username)) {
-    stop_if_missing("username")
+
+    if (rstudioapi::isAvailable()) {
+      username <- rstudioapi::showPrompt(title = "Prompt",
+        message = "Enter your username: ")
+
+    } else {
+      username <- as.character(readline("Enter your username: "))
+    }
+
+    if (missing(username)) {
+      stop_if_missing("username")
+    }
   }
 
   if (missing(password)) {
-    stop_if_missing("password")
+
+    if (rstudioapi::isAvailable()) {
+      password <- rstudioapi::askForSecret(
+        name = "Prompt",
+        title = "Enter your password"
+      )
+
+    } else {
+      password <- as.character(readline("Enter your password: "))
+
+    }
+
+    if (missing(password)) {
+      stop_if_missing("password")
+    }
   }
 
   if (!(is.character(username))) {

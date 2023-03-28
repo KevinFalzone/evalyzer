@@ -4,7 +4,7 @@
 \alias{auth}
 \title{Authenticate to the Evalyzer platform.}
 \usage{
-auth(username, password)
+auth(username = "", password = "")
 }
 \arguments{
 \item{username}{User name.}
@@ -19,4 +19,7 @@ Authenticate to the Evalyzer platform.
 }
 \examples{
 session <- auth("my-username", "my-password")
+
+# Authenticate interactively
+session <- auth()
 }
